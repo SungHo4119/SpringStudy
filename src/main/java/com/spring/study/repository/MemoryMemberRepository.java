@@ -1,12 +1,16 @@
 package com.spring.study.repository;
 
 import com.spring.study.domain.Member;
+import org.springframework.stereotype.Repository;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+// @Repository 어노테이션을 붙여주면 스프링 컨테이너에 등록이 된다.
+@Repository
 public class MemoryMemberRepository implements MemberRepository{
 
     private static Map<Long, Member> store = new HashMap<>();
