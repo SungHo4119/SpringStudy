@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 // @Service 어노테이션을 붙여주면 스프링 컨테이너에 등록이 된다.
-@Service
+//@Service
 public class MemberService {
 
     private final MemberRepository memberRepository;

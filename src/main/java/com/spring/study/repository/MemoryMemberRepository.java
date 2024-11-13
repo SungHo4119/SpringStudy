@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.Optional;
 
 // @Repository 어노테이션을 붙여주면 스프링 컨테이너에 등록이 된다.
-@Repository
+//@Repository
 public class MemoryMemberRepository implements MemberRepository{
 
     private static Map<Long, Member> store = new HashMap<>();
