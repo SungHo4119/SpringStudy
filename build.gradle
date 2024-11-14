@@ -9,6 +9,7 @@ version = '0.0.1-SNAPSHOT'
 
 java {
 	toolchain {
+		// 자바 버전
 		languageVersion = JavaLanguageVersion.of(17)
 	}
 }
@@ -20,16 +21,26 @@ configurations {
 }
 
 repositories {
+	// 아래 dependencies 다운받는 곳
 	mavenCentral()
 }
 
 dependencies {
+	// JPA
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	// Spring web
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	// Thymeleaf
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	// lombok
 	compileOnly 'org.projectlombok:lombok'
+	// H2
 	runtimeOnly 'com.h2database:h2'
+	// lombok
 	annotationProcessor 'org.projectlombok:lombok'
+	// 자바 기본 테스트 라이브러리
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	// junit
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
