@@ -40,7 +40,7 @@ public class HelloController {
         return hello;
     }
 
-    static class Hello{
+    static class Hello {
         private String hello;
 
         public String getHello() {
@@ -50,7 +50,5 @@ public class HelloController {
         public void setHello(String hello) {
             this.hello = hello;
         }
-
-
     }
 }
