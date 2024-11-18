@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Aspect
 public class TimeTraceAop {
+    // study 하위 항목에 모두 적용
     @Around("execution(* com.spring.study..*(..))")
     public Object execute(ProceedingJoinPoint joinPoint) throws Throwable {
         long start = System.currentTimeMillis();
