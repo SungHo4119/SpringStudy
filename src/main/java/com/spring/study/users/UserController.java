@@ -1,6 +1,7 @@
 package com.spring.study.users;
 
 import com.spring.study.domain.Users;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +18,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/")
+    @GetMapping
     public ResponseEntity<Users>  getUser(
         // name 파라미터를 받아옴
         @RequestParam(value = "name") String name
@@ -27,14 +28,13 @@ public class UserController {
         return ResponseEntity.ok(user);
     }
 
-    @PostMapping("/")
+    @PostMapping
     public ResponseEntity<Users> createUser(
         // RequestBody로 Users 객체를 받아옴
-       @RequestBody UserRequestDTO userDTo
+       @Valid @RequestBody UserRequestDTO userDTo
     ) {
         // requestDto를 User 객체로 변환
         Users user = new Users(userDTo.getUserName(), userDTo.getPassword());
-
         return ResponseEntity.ok(userService.createUser(user));
     }
 }
