@@ -14,12 +14,14 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class UserRequestDTOTest {
 
+    // 객체의 상태나 값이 유효한지 검사하는 인터페이스
     private Validator validator;
 
     @BeforeEach
     public void setUp() {
-        // jakarta.validation.constraints 의 어노테이션을 검증하는 Validator 객체 생성
+        // buildDefaultValidatorFactory() 메서드를 통해 기본 ValidatorFactory 인스턴스를 얻음
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        // ValidatorFactory 인터페이스의 getValidator() 메서드를 통해 Validator 인스턴스를 얻음
         validator = factory.getValidator();
     }
 
@@ -37,7 +39,9 @@ public class UserRequestDTOTest {
         UserRequestDTO userRequestDTO = new UserRequestDTO("abc","DlaSumin2@");
 
         Set<ConstraintViolation<UserRequestDTO>> violations = validator.validate(userRequestDTO);
+        // violations.size()는 검증된 결과의 개수를 반환 (오류 갯수 )
         assertEquals(1, violations.size());
+        // violations.iterator().next().getMessage()는 첫 번째 오류 메시지를 반환
         assertEquals("User name must be between 4 and 10 characters", violations.iterator().next().getMessage());
     }
 
@@ -74,5 +78,22 @@ public class UserRequestDTOTest {
         Set<ConstraintViolation<UserRequestDTO>> violations = validator.validate(userRequestDTO);
         assertEquals(1, violations.size());
         assertEquals("Password must contain at least one letter, one number and one special character", violations.iterator().next().getMessage());
+    }
+
+    @Test
+    public void 오류가두개인경우체크하는법() {
+        UserRequestDTO userRequestDTO = new UserRequestDTO("aaa","1234567890");
+
+        Set<ConstraintViolation<UserRequestDTO>> violations = validator.validate(userRequestDTO);
+        // 오류 갯수 확인
+        assertEquals(2, violations.size());
+        for (ConstraintViolation<UserRequestDTO> violation : violations) {
+            // getPropertyPath()는 오류가 발생한 필드의 경로를 반환
+            if(violation.getPropertyPath().toString().equals("userName"))
+                // getMessage()는 오류 메시지를 반환
+                assertEquals("User name must be between 4 and 10 characters", violation.getMessage());
+            else if(violation.getPropertyPath().toString().equals("password"))
+                assertEquals("Password must contain at least one letter, one number and one special character", violation.getMessage());
+        }
     }
 }
