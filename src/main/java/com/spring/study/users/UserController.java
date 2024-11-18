@@ -1,18 +1,12 @@
-package com.spring.study.controller;
+package com.spring.study.users;
 
 import com.spring.study.domain.Users;
-import com.spring.study.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Optional;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/v1/user")
 public class UserController {
     // userService 객체 정의
     private final UserService userService;
@@ -23,7 +17,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/findName")
+    @GetMapping("/")
     public ResponseEntity<Users>  getUser(
         // name 파라미터를 받아옴
         @RequestParam(value = "name") String name
@@ -33,5 +27,14 @@ public class UserController {
         return ResponseEntity.ok(user);
     }
 
+    @PostMapping("/")
+    public ResponseEntity<Users> createUser(
+        // RequestBody로 Users 객체를 받아옴
+       @RequestBody UserRequestDTO userDTo
+    ) {
+        // requestDto를 User 객체로 변환
+        Users user = new Users(userDTo.getUserName(), userDTo.getPassword());
 
+        return ResponseEntity.ok(userService.createUser(user));
+    }
 }

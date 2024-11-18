@@ -15,4 +15,13 @@ public class Users {
     private String userName;
     // 사용자 비밀번호
     private String password;
+
+    // 기본 생성자
+    public Users() {
+    }
+
+    public Users(String userName, String password) {
+        this.userName = userName;
+        this.password = password;
+    }
 }

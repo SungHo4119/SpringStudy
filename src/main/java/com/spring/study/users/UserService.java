@@ -1,8 +1,7 @@
-package com.spring.study.service;
+package com.spring.study.users;
 
 
 import com.spring.study.domain.Users;
-import com.spring.study.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +24,12 @@ public class UserService {
             throw new IllegalArgumentException("사용자를 찾을 수 없습니다.");
         }
         return user.get();
+    }
+
+    public Users createUser(Users user) {
+
+
+        return userRepository.save(user);
     }
 
 }
