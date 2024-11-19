@@ -2,6 +2,7 @@ package com.spring.study.users;
 
 
 import com.spring.study.domain.Users;
+import com.spring.study.exception.error.AlreadyExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,16 +21,20 @@ public class UserService {
 
     public Users getUser(String userName) {
         Optional<Users> user = userRepository.findByUserName(userName);
+        // 찾는 유저가 존재하지 않으면 오류
         if(user.isEmpty()) {
-            throw new IllegalArgumentException("사용자를 찾을 수 없습니다.");
+            throw new IllegalArgumentException("User not found");
         }
         return user.get();
     }
 
     public Users createUser(Users user) {
-
-
-        return userRepository.save(user);
+        Optional<Users> u = userRepository.findByUserName(user.getUserName());
+        // 유저가 없다면 정상 생성
+        if(u.isEmpty()) {
+            return userRepository.save(user);
+        }
+        // 유저가 존재하면 오류 발생
+        throw new AlreadyExistsException("User already exists");
     }
-
 }

@@ -3,6 +3,7 @@ package com.spring.study.users;
 import com.spring.study.domain.Users;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,6 +36,6 @@ public class UserController {
     ) {
         // requestDto를 User 객체로 변환
         Users user = new Users(userDTo.getUserName(), userDTo.getPassword());
-        return ResponseEntity.ok(userService.createUser(user));
+        return ResponseEntity.status(HttpStatus.CREATED).body(userService.createUser(user));
     }
 }
