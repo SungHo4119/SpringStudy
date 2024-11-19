@@ -1,8 +1,9 @@
-package com.spring.study.users;
+package com.spring.study.service;
 
 
 import com.spring.study.domain.Users;
 import com.spring.study.exception.custom.AlreadyExistsException;
+import com.spring.study.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

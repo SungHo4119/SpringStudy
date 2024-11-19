@@ -1,5 +1,6 @@
 package com.spring.study.users;
 
+import com.spring.study.controller.user.dto.UserRequestDTO;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;

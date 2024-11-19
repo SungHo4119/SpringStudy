@@ -1,4 +1,4 @@
-package com.spring.study.users;
+package com.spring.study.repository;
 
 import com.spring.study.domain.Users;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -16,12 +16,19 @@ public class Users {
     // 사용자 비밀번호
     private String password;
 
-    // 기본 생성자
     public Users() {
     }
 
     public Users(String userName, String password) {
         this.userName = userName;
         this.password = password;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getUserName() {
+        return userName;
     }
 }

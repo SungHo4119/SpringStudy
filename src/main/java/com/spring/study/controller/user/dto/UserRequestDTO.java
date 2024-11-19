@@ -1,4 +1,4 @@
-package com.spring.study.users;
+package com.spring.study.controller.user.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
