@@ -1,9 +1,8 @@
 package com.spring.study.exception;
 
 
-import com.spring.study.exception.error.AlreadyExistsException;
-import com.spring.study.exception.error.ErrorResponse;
-import com.spring.study.exception.error.ResourceNotFoundException;
+import com.spring.study.exception.custom.AlreadyExistsException;
+import com.spring.study.exception.custom.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;

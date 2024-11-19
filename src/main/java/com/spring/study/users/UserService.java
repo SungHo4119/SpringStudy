@@ -2,7 +2,7 @@ package com.spring.study.users;
 
 
 import com.spring.study.domain.Users;
-import com.spring.study.exception.error.AlreadyExistsException;
+import com.spring.study.exception.custom.AlreadyExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

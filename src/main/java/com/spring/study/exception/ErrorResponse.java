@@ -1,4 +1,4 @@
-package com.spring.study.exception.error;
+package com.spring.study.exception;
 
 import java.util.ArrayList;
 import java.util.List;

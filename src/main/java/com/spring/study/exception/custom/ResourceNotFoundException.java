@@ -1,4 +1,4 @@
-package com.spring.study.exception.error;
+package com.spring.study.exception.custom;
 
 
 // 예외 클래스 정의
