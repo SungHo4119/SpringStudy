@@ -1,11 +1,18 @@
 package com.spring.study.domain;
 
+import com.spring.study.dto.user.UserResponseDTO;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import org.hibernate.annotations.DynamicInsert;
 
 @Entity
+
+@Getter @Setter
 @Table(name = "users")
 @Data
+@DynamicInsert
 public class Users {
     // Pk
     @Id @GeneratedValue (strategy = GenerationType.IDENTITY)
@@ -24,11 +31,7 @@ public class Users {
         this.password = password;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public String getUserName() {
-        return userName;
+    public UserResponseDTO toUserResponseDTO() {
+        return new UserResponseDTO(this);
     }
 }

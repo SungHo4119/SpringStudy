@@ -1,7 +1,7 @@
 package com.spring.study.controller.user;
 
-import com.spring.study.controller.user.dto.UserRequestDTO;
-import com.spring.study.controller.user.dto.UserResponseDTO;
+import com.spring.study.dto.user.CreateUserRequestDTO;
+import com.spring.study.dto.user.UserResponseDTO;
 import com.spring.study.service.UserService;
 import com.spring.study.domain.Users;
 import jakarta.validation.Valid;
@@ -22,25 +22,26 @@ public class UserController {
         this.userService = userService;
     }
 
+    // 이름으로 유저 조회
     @GetMapping
-    public ResponseEntity<Users>  getUser(
+    public ResponseEntity<UserResponseDTO>  getUser(
         // name 파라미터를 받아옴
         @RequestParam(value = "name") String name
     ) {
         Users user = userService.getUser(name);
 
-        return ResponseEntity.ok(user);
+        return ResponseEntity.ok(user.toUserResponseDTO());
     }
 
+    // 유저 생성
     @PostMapping
     public ResponseEntity<UserResponseDTO> createUser(
         // RequestBody로 Users 객체를 받아옴
-       @Valid @RequestBody UserRequestDTO userDTo
+       @Valid @RequestBody CreateUserRequestDTO userDTO
     ) {
         // requestDto를 User 객체로 변환
-        Users user = userService.createUser(new Users(userDTo.getUserName(), userDTo.getPassword()));
+        Users user = userService.createUser(userDTO);
 
-        UserResponseDTO userResponseDTO = new UserResponseDTO(user);
-        return ResponseEntity.status(HttpStatus.CREATED).body(userResponseDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(user.toUserResponseDTO());
     }
 }

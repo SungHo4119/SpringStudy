@@ -1,4 +1,4 @@
-package com.spring.study.controller.user.dto;
+package com.spring.study.dto.user;
 
 import com.spring.study.domain.Users;
 import lombok.Data;
@@ -20,4 +20,6 @@ public class UserResponseDTO {
     public String getUserName() {
         return userName;
     }
+
+
 }

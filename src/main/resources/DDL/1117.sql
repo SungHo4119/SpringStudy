@@ -11,8 +11,8 @@ Create Table boards (
     user_id BIGINT NOT NULL,
     title VARCHAR(20) NOT NULL,
     content VARCHAR(500) NOT NULL,
-    create_at DATETIME NOT NULL,
-    update_at DATETIME,
+    create_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    update_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (ID),
     FOREIGN KEY (user_id) REFERENCES users(ID)
 );
