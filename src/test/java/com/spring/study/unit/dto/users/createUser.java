@@ -1,4 +1,4 @@
-package com.spring.study.unit.users.dto;
+package com.spring.study.unit.dto.users;
 
 import com.spring.study.dto.user.CreateUserRequestDTO;
 import jakarta.validation.ConstraintViolation;
