@@ -4,6 +4,7 @@ import com.spring.study.domain.Users;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+import lombok.Builder;
 import lombok.Data;
 
 @Data
@@ -18,25 +19,23 @@ public class CreateUserRequestDTO {
     @Pattern(regexp = "^(?=.*[a-zA-Z])(?=.*\\d)(?=.*[@$!%*?&])[a-zA-Z\\d@$!%*?&]+$", message = "Password must contain at least one letter, one number and one special character")
     private String password;
 
-    // 모든 필드를 초기화하는 생성자
+    @Builder
     public CreateUserRequestDTO(String userName, String password) {
         this.userName = userName;
         this.password = password;
     }
-    // 모든 필드를 초기화하는 생성자
-    public CreateUserRequestDTO(String userName) {
-        this.userName = userName;
-    }
-
-    public Users toEntity() {
-        return new Users(userName, password);
+    public String getUserName() {
+        return userName;
     }
 
     public String getPassword() {
         return password;
     }
 
-    public String getUserName() {
-        return userName;
+    public Users toEntity() {
+        return Users.builder()
+                .userName(userName)
+                .password(password)
+                .build();
     }
 }

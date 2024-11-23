@@ -1,23 +1,33 @@
 package com.spring.study.dto.board;
 
-import com.spring.study.domain.Board;
-import com.spring.study.domain.Users;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import java.time.LocalDateTime;
+import lombok.Builder;
 import lombok.Data;
 
 @Data
 public class BoardResponseDTO {
 
-    private Long id;
-    private String title;
-    private String content;
-    private Users user;
+  private Long id;
+  private String title;
+  private String content;
+  private Long user_id;
+  private LocalDateTime create_at;
+  private LocalDateTime update_at;
 
-    public BoardResponseDTO(Board board) {
-        this.id = board.getId();
-        this.title = board.getTitle();
-        this.content = board.getContent();
-        this.user = board.getUser();
-    }
+  @Builder
+  public BoardResponseDTO(
+      Long id,
+      String title,
+      String content,
+      Long user_id,
+      LocalDateTime create_at,
+      LocalDateTime update_at
+  ) {
+    this.id = id;
+    this.title = title;
+    this.content = content;
+    this.user_id = user_id;
+    this.create_at = create_at;
+    this.update_at = update_at;
+  }
 }

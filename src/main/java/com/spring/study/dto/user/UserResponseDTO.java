@@ -1,6 +1,7 @@
 package com.spring.study.dto.user;
 
 import com.spring.study.domain.Users;
+import lombok.Builder;
 import lombok.Data;
 
 @Data
@@ -8,9 +9,10 @@ public class UserResponseDTO {
     private Long id;
     private String userName;
 
-    public UserResponseDTO(Users user) {
-        this.id = user.getId();
-        this.userName = user.getUserName();
+    @Builder
+    public UserResponseDTO(Long id, String userName) {
+        this.id = id;
+        this.userName = userName;
     }
 
     public Long getId() {
