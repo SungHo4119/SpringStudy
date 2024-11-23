@@ -32,13 +32,11 @@ public class MemberServiceIntegrationTest {
         //then
         Member findMember = memberService.findOne(saveId).get();
         assertThat(findMember).isEqualTo(member);
-
-
     }
     @Test
     public void 중복_회원_예외(){
         Member member1 = new Member();
-        member1.setName("spring");
+        member1.setName("spring3");
 
         Member member2 = new Member();
         member2.setName("spring");
