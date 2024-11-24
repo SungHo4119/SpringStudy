@@ -1,5 +1,6 @@
 package com.spring.study.dto.board;
 
+import com.spring.study.exception.message.BoardErrorMessage;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
@@ -11,14 +12,14 @@ import lombok.Getter;
 @Getter
 public class CreateBoardRequestDTO {
 
-    @Size(min = 1, max = 20, message = "Title must be between 1 and 20 characters")
+    @Size(min = 1, max = 20, message = BoardErrorMessage.TITLE_LENGTH)
     private String title;
 
-    @Size(min = 1, max = 500, message = "Content must be between 1 and 500 characters")
+    @Size(min = 1, max = 500, message = BoardErrorMessage.CONTENT_LENGTH)
     private String content;
 
-    @NotNull(message = "User ID must not be null")
-    @Positive(message = "User ID must be positive") // 양수
+    @NotNull(message = BoardErrorMessage.USER_ID_NOT_NULL)
+    @Positive(message = BoardErrorMessage.USER_ID_POSITIVE) // 양수
     private Long userId;
 
     @Builder
