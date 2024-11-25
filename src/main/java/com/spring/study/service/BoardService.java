@@ -60,19 +60,29 @@ public class BoardService {
     // 게시판 수정
     @Transactional
     public Board updateBoard(Long id, UpdateBoardRequestDTO updateBoardRequestDTO) {
+        // 게시판 검색
         Board board = boardRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(BoardErrorMessage.BOARD_NOT_FOUND));
-
+        // 유저 검색
         Users user = userRepository.findById(updateBoardRequestDTO.getUserId())
                 .orElseThrow(() -> new ResourceNotFoundException(BoardErrorMessage.USER_NOT_FOUND));
-
+        // 비밀번호 검증
         if (!user.getPassword().equals(updateBoardRequestDTO.getPassword())) {
             throw new ResourceNotFoundException(BoardErrorMessage.PASSWORD_NOT_MATCH);
         }
 
         board.setTitle(updateBoardRequestDTO.getTitle());
         board.setContent(updateBoardRequestDTO.getContent());
-
+        // 저장
         return boardRepository.save(board);
+    }
+
+    @Transactional
+    public void deleteBoard(Long id) {
+        // 게시판 검색
+        Board board = boardRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(BoardErrorMessage.BOARD_NOT_FOUND));
+        // 삭제
+        boardRepository.deleteById(id);
     }
 }

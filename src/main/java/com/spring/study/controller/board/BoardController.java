@@ -12,6 +12,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -111,5 +112,17 @@ public class BoardController {
                 .build();
 
         return ResponseEntity.status(HttpStatus.OK).body(boardResponseDTO);
+    }
+
+    // 게시판 삭제
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteBoard(
+            @PathVariable
+            @NotNull(message = "ID must not be null") // null 허용 X
+            @Positive(message = "ID must be positive") // 양수
+            Long id
+    ) {
+        boardService.deleteBoard(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }
