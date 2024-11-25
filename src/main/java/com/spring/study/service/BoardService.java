@@ -3,13 +3,16 @@ package com.spring.study.service;
 import com.spring.study.domain.Board;
 import com.spring.study.domain.Users;
 import com.spring.study.dto.board.CreateBoardRequestDTO;
+import com.spring.study.dto.board.UpdateBoardRequestDTO;
 import com.spring.study.exception.custom.ResourceNotFoundException;
+import com.spring.study.exception.message.BoardErrorMessage;
 import com.spring.study.repository.BoardRepository;
 import com.spring.study.repository.UserRepository;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class BoardService {
@@ -24,10 +27,11 @@ public class BoardService {
     }
 
     // 게시판 생성
+    @Transactional
     public Board createBoard(CreateBoardRequestDTO createBoardRequestDTO) {
         Optional<Users> user = userRepository.findById(createBoardRequestDTO.getUserId());
         if (user.isEmpty()) {
-            throw new ResourceNotFoundException("User not found");
+            throw new ResourceNotFoundException(BoardErrorMessage.USER_NOT_FOUND);
         }
 
         Board board = Board.builder()
@@ -44,11 +48,31 @@ public class BoardService {
         return boardList;
     }
 
+    // 게시판 조회
     public Board getBoard(Long id) {
         Optional<Board> board = boardRepository.findById(id);
         if (board.isEmpty()) {
-            throw new ResourceNotFoundException("Board not found");
+            throw new ResourceNotFoundException(BoardErrorMessage.BOARD_NOT_FOUND);
         }
         return board.get();
+    }
+
+    // 게시판 수정
+    @Transactional
+    public Board updateBoard(Long id, UpdateBoardRequestDTO updateBoardRequestDTO) {
+        Board board = boardRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(BoardErrorMessage.BOARD_NOT_FOUND));
+
+        Users user = userRepository.findById(updateBoardRequestDTO.getUserId())
+                .orElseThrow(() -> new ResourceNotFoundException(BoardErrorMessage.USER_NOT_FOUND));
+
+        if (!user.getPassword().equals(updateBoardRequestDTO.getPassword())) {
+            throw new ResourceNotFoundException(BoardErrorMessage.PASSWORD_NOT_MATCH);
+        }
+
+        board.setTitle(updateBoardRequestDTO.getTitle());
+        board.setContent(updateBoardRequestDTO.getContent());
+
+        return boardRepository.save(board);
     }
 }

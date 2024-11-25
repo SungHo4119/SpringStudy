@@ -3,6 +3,7 @@ package com.spring.study.controller.board;
 import com.spring.study.domain.Board;
 import com.spring.study.dto.board.BoardResponseDTO;
 import com.spring.study.dto.board.CreateBoardRequestDTO;
+import com.spring.study.dto.board.UpdateBoardRequestDTO;
 import com.spring.study.service.BoardService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -76,6 +78,28 @@ public class BoardController {
             Long id
     ) {
         Board board = boardService.getBoard(id);
+
+        BoardResponseDTO boardResponseDTO = BoardResponseDTO.builder()
+                .id(board.getId())
+                .title(board.getTitle())
+                .content(board.getContent())
+                .user_id(board.getUser().getId())
+                .create_at(board.getCreate_at())
+                .update_at(board.getUpdate_at())
+                .build();
+
+        return ResponseEntity.status(HttpStatus.OK).body(boardResponseDTO);
+    }
+
+    @PatchMapping({"/{id}"})
+    public ResponseEntity<BoardResponseDTO> updateBoard(
+            @PathVariable
+            @NotNull(message = "ID must not be null") // null 허용 X
+            @Positive(message = "ID must be positive") // 양수
+            Long id,
+            @Valid @RequestBody UpdateBoardRequestDTO boardRequestDTO
+    ) {
+        Board board = boardService.updateBoard(id, boardRequestDTO);
 
         BoardResponseDTO boardResponseDTO = BoardResponseDTO.builder()
                 .id(board.getId())
