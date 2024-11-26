@@ -3,7 +3,7 @@ package com.spring.study.unit.dto.users;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.spring.study.dto.user.CreateUserRequestDTO;
+import com.spring.study.infrastructure.controller.user.dto.CreateUserRequestDTO;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;

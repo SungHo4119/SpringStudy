@@ -1,4 +1,4 @@
-package com.spring.study.config.aop;
+package com.spring.study.infrastructure.config.aop;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Aspect
 public class TimeTraceAop {
+
     // study 하위 항목에 모두 적용
     @Around("execution(* com.spring.study..*(..))")
     public Object execute(ProceedingJoinPoint joinPoint) throws Throwable {
@@ -18,7 +19,7 @@ public class TimeTraceAop {
         } finally {
             long finish = System.currentTimeMillis();
             long timeMs = finish - start;
-            System.out.println("END: " + joinPoint.toString()+ " " + timeMs +"ms");
+            System.out.println("END: " + joinPoint.toString() + " " + timeMs + "ms");
         }
     }
 }

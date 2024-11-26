@@ -3,8 +3,8 @@ package com.spring.study.unit.dto.board;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.spring.study.dto.board.CreateBoardRequestDTO;
 import com.spring.study.exception.message.BoardErrorMessage;
+import com.spring.study.infrastructure.controller.board.dto.CreateBoardRequestDTO;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;

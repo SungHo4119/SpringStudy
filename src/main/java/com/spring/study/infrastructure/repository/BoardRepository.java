@@ -1,4 +1,4 @@
-package com.spring.study.repository;
+package com.spring.study.infrastructure.repository;
 
 import com.spring.study.domain.Board;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -1,17 +1,20 @@
-package com.spring.study.dto.user;
+package com.spring.study.infrastructure.controller.user.dto;
 
-import com.spring.study.domain.Users;
+import com.spring.study.useCase.service.user.dto.ICreateUserRequestDTO;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 
 @Data
-public class CreateUserRequestDTO {
+@Getter
+public class CreateUserRequestDTO implements ICreateUserRequestDTO {
+
     // 이름
     @NotBlank(message = "Password is required")
-    @Size(min = 4, max = 10, message="User name must be between 4 and 10 characters")
+    @Size(min = 4, max = 10, message = "User name must be between 4 and 10 characters")
     private String userName;
 
     // 비밀번호
@@ -24,18 +27,5 @@ public class CreateUserRequestDTO {
         this.userName = userName;
         this.password = password;
     }
-    public String getUserName() {
-        return userName;
-    }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public Users toEntity() {
-        return Users.builder()
-                .userName(userName)
-                .password(password)
-                .build();
-    }
 }

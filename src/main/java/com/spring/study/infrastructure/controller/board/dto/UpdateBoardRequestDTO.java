@@ -1,12 +1,13 @@
-package com.spring.study.dto.board;
+package com.spring.study.infrastructure.controller.board.dto;
 
+import com.spring.study.useCase.service.board.dto.IUpdateBoardRequestDTO;
 import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
 
 @Data
 @Getter
-public class UpdateBoardRequestDTO {
+public class UpdateBoardRequestDTO implements IUpdateBoardRequestDTO {
 
     private String title;
     private String content;

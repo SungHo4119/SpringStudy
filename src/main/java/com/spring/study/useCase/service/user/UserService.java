@@ -1,12 +1,12 @@
-package com.spring.study.service;
+package com.spring.study.useCase.service.user;
 
 
 import com.spring.study.domain.Users;
-import com.spring.study.dto.user.CreateUserRequestDTO;
 import com.spring.study.exception.custom.AlreadyExistsException;
 import com.spring.study.exception.custom.ResourceNotFoundException;
 import com.spring.study.exception.message.UserErrorMessage;
-import com.spring.study.repository.UserRepository;
+import com.spring.study.infrastructure.repository.UserRepository;
+import com.spring.study.useCase.service.user.dto.ICreateUserRequestDTO;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,7 +34,7 @@ public class UserService {
     }
 
     @Transactional
-    public Users createUser(CreateUserRequestDTO createUserRequestDTO) {
+    public Users createUser(ICreateUserRequestDTO createUserRequestDTO) {
 
         Optional<Users> u = userRepository.findByUserName(createUserRequestDTO.getUserName());
 
