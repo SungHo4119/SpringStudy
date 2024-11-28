@@ -34,6 +34,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     // Jakarta Validation을 포함하는 Spring Boot Starter
     implementation 'org.springframework.boot:spring-boot-starter-validation'
+    // Spring Security
+//    implementation 'org.springframework.boot:spring-boot-starter-security'
     // lombok
     compileOnly 'org.projectlombok:lombok'
     // H2
@@ -42,8 +44,16 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok'
     // 자바 기본 테스트 라이브러리
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    // Spring Security 테스트 라이브러리
+//    testImplementation 'org.springframework.security:spring-security-test'
     // junit
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+
+//    // JWT
+//    implementation group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.11.5'
+//    runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.11.5'
+//    runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.11.5'
 }
 
 tasks.named('test') {

@@ -1,13 +1,13 @@
-package com.spring.study.service;
+package com.spring.study.useCase.service.board;
 
 import com.spring.study.domain.Board;
 import com.spring.study.domain.Users;
-import com.spring.study.dto.board.CreateBoardRequestDTO;
-import com.spring.study.dto.board.UpdateBoardRequestDTO;
 import com.spring.study.exception.custom.ResourceNotFoundException;
 import com.spring.study.exception.message.BoardErrorMessage;
-import com.spring.study.repository.BoardRepository;
-import com.spring.study.repository.UserRepository;
+import com.spring.study.infrastructure.repository.BoardRepository;
+import com.spring.study.infrastructure.repository.UserRepository;
+import com.spring.study.useCase.service.board.dto.ICreateBoardRequestDTO;
+import com.spring.study.useCase.service.board.dto.IUpdateBoardRequestDTO;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +28,7 @@ public class BoardService {
 
     // 게시판 생성
     @Transactional
-    public Board createBoard(CreateBoardRequestDTO createBoardRequestDTO) {
+    public Board createBoard(ICreateBoardRequestDTO createBoardRequestDTO) {
         Optional<Users> user = userRepository.findById(createBoardRequestDTO.getUserId());
         if (user.isEmpty()) {
             throw new ResourceNotFoundException(BoardErrorMessage.USER_NOT_FOUND);
@@ -59,7 +59,7 @@ public class BoardService {
 
     // 게시판 수정
     @Transactional
-    public Board updateBoard(Long id, UpdateBoardRequestDTO updateBoardRequestDTO) {
+    public Board updateBoard(Long id, IUpdateBoardRequestDTO updateBoardRequestDTO) {
         // 게시판 검색
         Board board = boardRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(BoardErrorMessage.BOARD_NOT_FOUND));

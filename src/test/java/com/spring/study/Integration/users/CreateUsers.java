@@ -5,10 +5,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import com.spring.study.domain.Users;
-import com.spring.study.dto.user.CreateUserRequestDTO;
 import com.spring.study.exception.custom.AlreadyExistsException;
-import com.spring.study.repository.UserRepository;
-import com.spring.study.service.UserService;
+import com.spring.study.infrastructure.controller.user.dto.CreateUserRequestDTO;
+import com.spring.study.infrastructure.repository.UserRepository;
+import com.spring.study.useCase.service.user.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

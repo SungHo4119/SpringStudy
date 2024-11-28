@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ErrorResponse {
+
     private String errorCode;
     private List<String> errorMessage;
 

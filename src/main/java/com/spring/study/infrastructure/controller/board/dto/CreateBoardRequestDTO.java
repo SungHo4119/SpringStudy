@@ -1,6 +1,7 @@
-package com.spring.study.dto.board;
+package com.spring.study.infrastructure.controller.board.dto;
 
 import com.spring.study.exception.message.BoardErrorMessage;
+import com.spring.study.useCase.service.board.dto.ICreateBoardRequestDTO;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
@@ -10,7 +11,7 @@ import lombok.Getter;
 
 @Data
 @Getter
-public class CreateBoardRequestDTO {
+public class CreateBoardRequestDTO implements ICreateBoardRequestDTO {
 
     @Size(min = 1, max = 20, message = BoardErrorMessage.TITLE_LENGTH)
     private String title;

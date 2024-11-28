@@ -1,10 +1,10 @@
-package com.spring.study.controller.board;
+package com.spring.study.infrastructure.controller.board;
 
 import com.spring.study.domain.Board;
-import com.spring.study.dto.board.BoardResponseDTO;
-import com.spring.study.dto.board.CreateBoardRequestDTO;
-import com.spring.study.dto.board.UpdateBoardRequestDTO;
-import com.spring.study.service.BoardService;
+import com.spring.study.infrastructure.controller.board.dto.BoardPublicDTO;
+import com.spring.study.infrastructure.controller.board.dto.CreateBoardRequestDTO;
+import com.spring.study.infrastructure.controller.board.dto.UpdateBoardRequestDTO;
+import com.spring.study.useCase.service.board.BoardService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -34,12 +34,12 @@ public class BoardController {
 
     // 게시판 생성
     @PostMapping
-    public ResponseEntity<BoardResponseDTO> createBoard(
+    public ResponseEntity<BoardPublicDTO> createBoard(
             @Valid @RequestBody CreateBoardRequestDTO createBoardRequestDTO
     ) {
         Board board = boardService.createBoard(createBoardRequestDTO);
 
-        BoardResponseDTO boardResponseDTO = BoardResponseDTO.builder()
+        BoardPublicDTO boardResponseDTO = BoardPublicDTO.builder()
                 .id(board.getId())
                 .title(board.getTitle())
                 .content(board.getContent())
@@ -53,11 +53,11 @@ public class BoardController {
 
     // 게시판 리스트 조회
     @GetMapping("/list")
-    public ResponseEntity<List<BoardResponseDTO>> getBoardList() {
+    public ResponseEntity<List<BoardPublicDTO>> getBoardList() {
         List<Board> boardList = boardService.getBoardList();
         // BoardResponseDTO 리스트로 변환
-        List<BoardResponseDTO> boardResponseDTOList = boardList.stream()
-                .map(board -> BoardResponseDTO.builder()
+        List<BoardPublicDTO> boardResponseDTOList = boardList.stream()
+                .map(board -> BoardPublicDTO.builder()
                         .id(board.getId())
                         .title(board.getTitle())
                         .content(board.getContent())
@@ -72,7 +72,7 @@ public class BoardController {
 
     // 게시판 조회
     @GetMapping("/{id}")
-    public ResponseEntity<BoardResponseDTO> getBoard(
+    public ResponseEntity<BoardPublicDTO> getBoard(
             @PathVariable
             @NotNull(message = "ID must not be null") // null 허용 X
             @Positive(message = "ID must be positive") // 양수
@@ -80,7 +80,7 @@ public class BoardController {
     ) {
         Board board = boardService.getBoard(id);
 
-        BoardResponseDTO boardResponseDTO = BoardResponseDTO.builder()
+        BoardPublicDTO boardResponseDTO = BoardPublicDTO.builder()
                 .id(board.getId())
                 .title(board.getTitle())
                 .content(board.getContent())
@@ -93,7 +93,7 @@ public class BoardController {
     }
 
     @PatchMapping({"/{id}"})
-    public ResponseEntity<BoardResponseDTO> updateBoard(
+    public ResponseEntity<BoardPublicDTO> updateBoard(
             @PathVariable
             @NotNull(message = "ID must not be null") // null 허용 X
             @Positive(message = "ID must be positive") // 양수
@@ -102,7 +102,7 @@ public class BoardController {
     ) {
         Board board = boardService.updateBoard(id, boardRequestDTO);
 
-        BoardResponseDTO boardResponseDTO = BoardResponseDTO.builder()
+        BoardPublicDTO boardResponseDTO = BoardPublicDTO.builder()
                 .id(board.getId())
                 .title(board.getTitle())
                 .content(board.getContent())
