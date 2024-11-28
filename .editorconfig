@@ -1,0 +1,25 @@
+# .editorconfig 파일의 버전
+root = true
+
+# 모든 파일에 적용할 기본 규칙
+[*]
+charset = utf-8 # 파일 인코딩 설정
+indent_style = space # 들여쓰기 스타일 (space 또는 tab)
+indent_size = 4 # 들여쓰기 크기
+end_of_line = lf # 줄바꿈 스타일 (lf, cr, crlf)
+trim_trailing_whitespace = true # 줄 끝의 불필요한 공백 제거
+insert_final_newline = true # 파일 끝에 빈 줄 추가
+
+# 특정 파일 타입에 대한 규칙 (.java 파일)
+[*.java]
+indent_size = 4 # Java 파일은 4칸 공백
+max_line_length = 120 # 한 줄 최대 길이
+continuation_indent_size = 8 # 줄이 길어져서 계속될 때 들여쓰기 크기
+
+# Markdown 파일에 대한 별도 설정
+[*.md]
+trim_trailing_whitespace = false # Markdown에서는 줄 끝 공백 유지
+
+# JSON 파일에 대한 설정
+[*.json]
+indent_size = 2 # JSON 파일은 2칸 공백
