@@ -1,6 +1,7 @@
 package com.spring.study.infrastructure.controller.board;
 
 import com.spring.study.domain.Board;
+import com.spring.study.exception.message.PublicErrorMessage;
 import com.spring.study.infrastructure.controller.board.dto.BoardPublicDTO;
 import com.spring.study.infrastructure.controller.board.dto.CreateBoardRequestDTO;
 import com.spring.study.infrastructure.controller.board.dto.UpdateBoardRequestDTO;
@@ -95,8 +96,8 @@ public class BoardController {
     @PatchMapping({"/{id}"})
     public ResponseEntity<BoardPublicDTO> updateBoard(
             @PathVariable
-            @NotNull(message = "ID must not be null") // null 허용 X
-            @Positive(message = "ID must be positive") // 양수
+            @NotNull(message = PublicErrorMessage.ID_NOT_NULL)
+            @Positive(message = PublicErrorMessage.ID_POSITIVE) // 양수
             Long id,
             @Valid @RequestBody UpdateBoardRequestDTO boardRequestDTO
     ) {
@@ -118,8 +119,8 @@ public class BoardController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteBoard(
             @PathVariable
-            @NotNull(message = "ID must not be null") // null 허용 X
-            @Positive(message = "ID must be positive") // 양수
+            @NotNull(message = PublicErrorMessage.ID_NOT_NULL)
+            @Positive(message = PublicErrorMessage.ID_POSITIVE) // 양수
             Long id
     ) {
         boardService.deleteBoard(id);
