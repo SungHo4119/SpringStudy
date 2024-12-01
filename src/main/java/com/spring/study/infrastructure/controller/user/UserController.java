@@ -1,8 +1,8 @@
 package com.spring.study.infrastructure.controller.user;
 
-import com.spring.study.domain.Users;
-import com.spring.study.infrastructure.controller.user.dto.CreateUserRequestDTO;
+import com.spring.study.domain.user.Users;
 import com.spring.study.infrastructure.controller.user.dto.UserPublicDTO;
+import com.spring.study.infrastructure.controller.user.dto.UserRequestDTO;
 import com.spring.study.useCase.service.user.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +46,7 @@ public class UserController {
     @PostMapping
     public ResponseEntity<UserPublicDTO> createUser(
             // RequestBody로 Users 객체를 받아옴
-            @Valid @RequestBody CreateUserRequestDTO userDTO
+            @Valid @RequestBody UserRequestDTO userDTO
     ) {
         // requestDto를 User 객체로 변환
         Users user = userService.createUser(userDTO);
@@ -57,4 +57,12 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(userResponseDTO);
     }
 
+    @PostMapping("/login")
+    public ResponseEntity<String> loginUser(
+            // RequestBody로 Users 객체를 받아옴
+            @Valid @RequestBody UserRequestDTO userDTO
+    ) {
+        String str = userService.userLogin(userDTO);
+        return ResponseEntity.ok(str);
+    }
 }

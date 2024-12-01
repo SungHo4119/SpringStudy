@@ -1,5 +1,6 @@
-package com.spring.study.domain;
+package com.spring.study.domain.board;
 
+import com.spring.study.domain.user.Users;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;

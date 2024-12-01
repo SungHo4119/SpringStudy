@@ -4,9 +4,9 @@ import static com.spring.study.exception.message.UserErrorMessage.USER_ALREADY_E
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import com.spring.study.domain.Users;
+import com.spring.study.domain.user.Users;
 import com.spring.study.exception.custom.AlreadyExistsException;
-import com.spring.study.infrastructure.controller.user.dto.CreateUserRequestDTO;
+import com.spring.study.infrastructure.controller.user.dto.UserRequestDTO;
 import com.spring.study.infrastructure.repository.UserRepository;
 import com.spring.study.useCase.service.user.UserService;
 import org.junit.jupiter.api.Test;
@@ -26,7 +26,7 @@ public class CreateUsers {
     @Test
     void 회원_가입() {
         // given
-        CreateUserRequestDTO user = new CreateUserRequestDTO("test", "1234");
+        UserRequestDTO user = new UserRequestDTO("test", "1234");
         // when
         Users createUser = userService.createUser(user);
         //then
@@ -37,7 +37,7 @@ public class CreateUsers {
     @Test
     void 회원_아이디_중복() {
         // given
-        CreateUserRequestDTO user = new CreateUserRequestDTO("test", "1234");
+        UserRequestDTO user = new UserRequestDTO("test", "1234");
         // when
         Users createUser = userService.createUser(user);
         //then

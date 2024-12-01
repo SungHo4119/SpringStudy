@@ -1,6 +1,6 @@
 package com.spring.study.useCase.service.user.dto;
 
-public interface ICreateUserRequestDTO {
+public interface IUserRequestDTO {
 
     String getUserName();
 

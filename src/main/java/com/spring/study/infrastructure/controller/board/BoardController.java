@@ -1,6 +1,6 @@
 package com.spring.study.infrastructure.controller.board;
 
-import com.spring.study.domain.Board;
+import com.spring.study.domain.board.Board;
 import com.spring.study.exception.message.PublicErrorMessage;
 import com.spring.study.infrastructure.controller.board.dto.BoardPublicDTO;
 import com.spring.study.infrastructure.controller.board.dto.CreateBoardRequestDTO;
