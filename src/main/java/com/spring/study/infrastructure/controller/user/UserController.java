@@ -4,6 +4,7 @@ import com.spring.study.domain.user.Users;
 import com.spring.study.infrastructure.controller.user.dto.UserPublicDTO;
 import com.spring.study.infrastructure.controller.user.dto.UserRequestDTO;
 import com.spring.study.useCase.service.user.UserService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -57,6 +58,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(userResponseDTO);
     }
 
+    // 로그인
     @PostMapping("/login")
     public ResponseEntity<String> loginUser(
             // RequestBody로 Users 객체를 받아옴
@@ -64,5 +66,16 @@ public class UserController {
     ) {
         String str = userService.userLogin(userDTO);
         return ResponseEntity.ok(str);
+    }
+
+    @GetMapping("/info")
+    public ResponseEntity<Users> userInfo(
+            // HttpServletRequest를 통해 토큰 정보 조회
+            HttpServletRequest request
+    ) {
+        // 토큰 정보를 통해 유저 정보 조회
+        Users user = userService.getUserInfo(request);
+        return ResponseEntity.ok(user);
+
     }
 }

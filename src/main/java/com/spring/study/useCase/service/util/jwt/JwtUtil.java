@@ -2,13 +2,9 @@ package com.spring.study.useCase.service.util.jwt;
 
 import com.spring.study.domain.user.UserRole;
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.UnsupportedJwtException;
 import io.jsonwebtoken.security.Keys;
-import io.jsonwebtoken.security.SecurityException;
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
 import java.security.Key;
@@ -55,31 +51,20 @@ public class JwtUtil {
     }
 
     // 토큰 생성
-    public String createToken(String userName, UserRole role) {
+    public String createToken(Long userId, String userName, UserRole role) {
         Date date = new Date(); // 현재 시간
         return BEAREER_PREFIX +
                 Jwts.builder()
                         .setSubject(userName) // 토큰 제목
+                        .setId(userId.toString()) // 토큰 아이디
                         .claim(AUTHORIZATION_KEY, role) // 클레임 설정
                         .setExpiration(new Date(date.getTime() + TOKEN_TIME)) // 만료 시간 설정
                         .signWith(key, signatureAlgorithm) // 키와 알고리즘 설정
                         .compact(); // 토큰 생성
     }
 
-    public boolean validateToken(String token) {
-        try {
-            Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
-            return true;
-        } catch (SecurityException | MalformedJwtException e) {
-            log.error("잘못된 JWT 서명입니다.");
-        } catch (ExpiredJwtException e) {
-            log.error("JWT 토큰이 만료되었습니다.");
-        } catch (UnsupportedJwtException e) {
-            log.error("지원되지 않는 JWT 토큰입니다.");
-        } catch (IllegalArgumentException e) {
-            log.error("JWT claims is empty, 잘못된 JWT 토큰입니다.");
-        }
-        return false;
+    public void validateToken(String token) {
+        Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
     }
 
     public Claims getUserInfoFromToken(String token) {

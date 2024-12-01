@@ -8,6 +8,8 @@ import com.spring.study.exception.message.UserErrorMessage;
 import com.spring.study.infrastructure.repository.UserRepository;
 import com.spring.study.useCase.service.user.dto.IUserRequestDTO;
 import com.spring.study.useCase.service.util.jwt.JwtUtil;
+import io.jsonwebtoken.Claims;
+import jakarta.servlet.http.HttpServletRequest;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -66,6 +68,28 @@ public class UserService {
             throw new ResourceNotFoundException(UserErrorMessage.PASSWORD_NOT_MATCH);
         }
         // 토큰 생성
-        return jwtUtil.createToken(users.get().getUserName(), users.get().getRole());
+        return jwtUtil.createToken(users.get().getId(), users.get().getUserName(), users.get().getRole());
+    }
+
+    public Users getUserInfo(HttpServletRequest request) {
+        // 토큰 가져오기
+        String token = jwtUtil.resolveToeken(request);
+        // 토큰 검증
+        jwtUtil.validateToken(token);
+
+        // 토큰에서 사용자 정보 가져오기
+        Claims claims = jwtUtil.getUserInfoFromToken(token);
+
+        // 사용자 아이디 가져오기
+        Long id = Long.parseLong(claims.get("jti", String.class));
+        Optional<Users> user = userRepository.findById(id);
+
+        // 유저가 존재하지 않으면 오류
+        if (user.isEmpty()) {
+            throw new ResourceNotFoundException(UserErrorMessage.USER_NOT_FOUND);
+        } else if (!user.get().getUserName().equals(claims.get("sub", String.class))) {
+            throw new ResourceNotFoundException(UserErrorMessage.USER_NOT_FOUND);
+        }
+        return user.get();
     }
 }
