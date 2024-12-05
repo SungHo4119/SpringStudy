@@ -1,9 +1,10 @@
 package com.spring.study.useCase.service.board;
 
-import com.spring.study.domain.Board;
-import com.spring.study.domain.Users;
+import com.spring.study.domain.board.Board;
+import com.spring.study.domain.user.Users;
 import com.spring.study.exception.custom.ResourceNotFoundException;
 import com.spring.study.exception.message.BoardErrorMessage;
+import com.spring.study.exception.message.UserErrorMessage;
 import com.spring.study.infrastructure.repository.BoardRepository;
 import com.spring.study.infrastructure.repository.UserRepository;
 import com.spring.study.useCase.service.board.dto.ICreateBoardRequestDTO;
@@ -31,7 +32,7 @@ public class BoardService {
     public Board createBoard(ICreateBoardRequestDTO createBoardRequestDTO) {
         Optional<Users> user = userRepository.findById(createBoardRequestDTO.getUserId());
         if (user.isEmpty()) {
-            throw new ResourceNotFoundException(BoardErrorMessage.USER_NOT_FOUND);
+            throw new ResourceNotFoundException(UserErrorMessage.USER_NOT_FOUND);
         }
 
         Board board = Board.builder()
@@ -65,10 +66,10 @@ public class BoardService {
                 .orElseThrow(() -> new ResourceNotFoundException(BoardErrorMessage.BOARD_NOT_FOUND));
         // 유저 검색
         Users user = userRepository.findById(updateBoardRequestDTO.getUserId())
-                .orElseThrow(() -> new ResourceNotFoundException(BoardErrorMessage.USER_NOT_FOUND));
+                .orElseThrow(() -> new ResourceNotFoundException(UserErrorMessage.USER_NOT_FOUND));
         // 비밀번호 검증
         if (!user.getPassword().equals(updateBoardRequestDTO.getPassword())) {
-            throw new ResourceNotFoundException(BoardErrorMessage.PASSWORD_NOT_MATCH);
+            throw new ResourceNotFoundException(UserErrorMessage.PASSWORD_NOT_MATCH);
         }
 
         board.setTitle(updateBoardRequestDTO.getTitle());

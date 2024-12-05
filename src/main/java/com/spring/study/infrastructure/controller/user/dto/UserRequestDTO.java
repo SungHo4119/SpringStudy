@@ -5,7 +5,7 @@ import static com.spring.study.exception.message.UserErrorMessage.PASSWORD_PATTE
 import static com.spring.study.exception.message.UserErrorMessage.USER_NAME_LENGTH;
 import static com.spring.study.exception.message.UserErrorMessage.USER_NAME_NOT_BLANK;
 
-import com.spring.study.useCase.service.user.dto.ICreateUserRequestDTO;
+import com.spring.study.useCase.service.user.dto.IUserRequestDTO;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -15,7 +15,7 @@ import lombok.Getter;
 
 @Data
 @Getter
-public class CreateUserRequestDTO implements ICreateUserRequestDTO {
+public class UserRequestDTO implements IUserRequestDTO {
 
     // 이름
     @NotBlank(message = USER_NAME_NOT_BLANK)
@@ -28,7 +28,7 @@ public class CreateUserRequestDTO implements ICreateUserRequestDTO {
     private String password;
 
     @Builder
-    public CreateUserRequestDTO(String userName, String password) {
+    public UserRequestDTO(String userName, String password) {
         this.userName = userName;
         this.password = password;
     }
