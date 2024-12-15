@@ -1,6 +1,6 @@
 package com.spring.study.infrastructure.repository;
 
-import com.spring.study.domain.Users;
+import com.spring.study.domain.user.Users;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
